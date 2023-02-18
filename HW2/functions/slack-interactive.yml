@@ -7,4 +7,4 @@ functions:
     handler: ./slack-interactive
     image: aksharanittala/slack-interactive
     environment:
-      content_type: application/json; charset=utf-8
+      content_type: application/json
