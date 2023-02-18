@@ -1,0 +1,37 @@
+1. What is the command to invoke the slack-request function?
+a. Via Curl
+curl -d '{"Hello"}' http://127.0.0.1:8080/function/slack-request
+
+b. Via faas-cli
+faas-cli invoke slack-request
+
+2. What is the output you see when you invoke the slack-request function?
+
+Slack-request output:
+{"text": "Serverless Message", "attachments": [{"fields": [{"short": true, "value": "100", "title": "Amazing Level"}], "author_icon": "", "image_url": "https://github.com/anittala.png", "author_name": "Akshara Nittala", "title": "The Awesome world of Cloud Computing! COEN 241"}, {"text": "COEN 241 is the most awesome class ever!.", "title": "About COEN 241"}, {"title": "Would you recommend COEN 241 to your friends?", "color": "#3AA3E3", "actions": [{"text": "Of Course!", "type": "button", "name": "recommend", "value": "recommend"}, {"text": "Most Definitely!", "type": "button", "name": "definitely", "value": "definitely"}], "callback_id": "response123", "fallback": "Would you recommend COEN 241 to your friends?", "attachment_type": "default"}]}
+
+3. What is the command to invoke the slack-interactive function?
+a. Via curl
+curl -d '{"Hello":"Cloud"}' http://127.0.0.1:8080/function/slack-interactive
+
+b. Via faas-cli
+faas-cli invoke slack-interactive
+
+4. What is the output you see when you invoke the slack-interactive function?
+
+Slack-interactive output:
+{"attachments": [{"footer": "Slack Apps built on OpenFaas", "author_link": "https://github.com/anittala/cloud-computing.git", "color": "#36a64f", "text": "Head over to COEN 241", "title": "COEN 241", "ts": 123456789, "author_name": "", "title_link": "https://www.scu.edu/engineering/academic-programs/department-of-computer-engineering/graduate/course-descriptions/", "image_url": "https://www.scu.edu/media/offices/umc/scu-brand-guidelines/visual-identity-amp-photography/visual-identity-toolkit/logos-amp-seals/Mission-Dont3.png", "response_type": "ephemeral", "replace_original": true, "footer_icon": "https://a.slack-edge.com/45901/marketing/img/_rebrand/meta/slack_hash_256.png", "pretext": "Ahh yeah! Great choice, COEN 241 is absolutely amazing!", "fallback": "Required plain-text summary of the attachment.", "thumb_url": "https://www.scu.edu/engineering/academic-programs/department-of-computer-engineering/graduate/course-descriptions/", "author_icon": "https://github.com/anittala.png"}]}
+
+5. How would you pass different arguments to the functions?
+a) Different arguments can be paased to function by using the "echo" command.
+Example: echo “Hello, FaaS, World” | faas-cli invoke figlet
+We have invoked the figlet function using the above command with the argument to
+the function that is, “Hello,FaaS World”. 
+b) We can also pass arguments from OpenFaas Portal from the Request Body section.
+
+6. How would you change the slack-interactive function to react to different inputs?
+The urllib is a package in which the unquote function is defined in handler.py (slack-interactive function).
+It is used to decode any string into a URL.
+We are utilizing the json.loads() method to parse a JSON string, that is the URL string , into a Python dictionary. This information is saved in the response.
+We may change the slack-interactive function to react to different inputs by passing a JSON as input in OpenFaas gateway UI or while invoking the function command line.
+The response will be a python dictionary and it will be converted to a JSON string by json.dumps().
